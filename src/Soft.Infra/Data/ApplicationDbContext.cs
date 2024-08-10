@@ -1,4 +1,5 @@
 ﻿
+using Soft.Bussiness;
 using System.Data.Entity;
 
 //[DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]

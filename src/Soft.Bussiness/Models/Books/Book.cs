@@ -1,8 +1,11 @@
-﻿using Soft.Bussiness;
+﻿using Org.BouncyCastle.Asn1.Esf;
+using Soft.Bussiness;
+using Soft.Bussiness.Models.Books;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-
+namespace Soft.Bussiness
+{ 
     public class Book : Entity
     {
 
@@ -10,7 +13,6 @@ using System.ComponentModel.DataAnnotations;
         [MaxLength(100)]
         public string Title { get; set; }
 
-        [Required]
         [MaxLength(50)]
         public string Author { get; set; }
 
@@ -33,5 +35,14 @@ using System.ComponentModel.DataAnnotations;
 
         [MaxLength(255)]
         public string CoverPath { get; set; }
+
+        public bool Validate() 
+        {
+            var validate = new BookValidation();
+            var result = validate.Validate(this);
+            return result.IsValid;
+        }      
+        
     }
+ }
 
