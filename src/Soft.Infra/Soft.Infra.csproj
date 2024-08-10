@@ -127,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ApplicationDbContext.cs" />
+    <Compile Include="Data\Repository\Repository.cs" />
     <Compile Include="Migrations\202408100554574_CreateUserTable_10082024.cs" />
     <Compile Include="Migrations\202408100554574_CreateUserTable_10082024.designer.cs">
       <DependentUpon>202408100554574_CreateUserTable_10082024.cs</DependentUpon>
