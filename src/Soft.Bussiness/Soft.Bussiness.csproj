@@ -101,14 +101,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Entity\Entity.cs" />
+    <Compile Include="Models\Books\Book.cs" />
     <Compile Include="Models\Users\LoginModel.cs" />
     <Compile Include="Models\Users\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />
-    <Folder Include="Models\Livros\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

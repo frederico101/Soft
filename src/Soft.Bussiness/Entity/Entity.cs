@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace Soft.Bussiness
 {
-    public class Class1
+    public abstract class Entity
     {
+        protected Entity() 
+        {
+            Id = Guid.NewGuid();
+        }
+        public Guid Id { get; set; }
     }
+
+    
 }
