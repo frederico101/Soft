@@ -1,5 +1,4 @@
 ﻿using FluentValidation.Results;
-using Soft.Bussiness.Models.Books;
 using System;
 
 namespace Soft.Bussiness.Models.Books
@@ -31,13 +30,13 @@ namespace Soft.Bussiness.Models.Books
       
         public string CoverPath { get; set; }
 
-        public ValidationResult Validate() 
+        public ValidationResult Validate()
         {
             var validate = new BookValidation();
             var result = validate.Validate(this);
             return result;
-        }      
-        
+        }
+
     }
  }
 

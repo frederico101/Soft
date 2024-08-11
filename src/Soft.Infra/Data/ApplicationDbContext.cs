@@ -1,5 +1,5 @@
 ﻿
-using Soft.Bussiness;
+using Soft.Bussiness.Models.Books;
 using System.Data.Entity;
 
 //[DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
