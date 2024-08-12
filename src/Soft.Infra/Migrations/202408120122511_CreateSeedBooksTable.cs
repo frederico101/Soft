@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class _10082024_SeedBookTable : DbMigration
+    public partial class CreateSeedBooksTable : DbMigration
     {
         public override void Up()
         {
@@ -28,7 +28,7 @@
             Sql("INSERT INTO Books (Id, Title, Author, Category, IsRented, CreatedAt, UpdatedAt, Status, CoverPath) VALUES (UUID(), 'The Divine Comedy', 'Dante Alighieri', 'Epic', 0, NOW(), NOW(), 'Available', '/images/book19.jpg')");
             Sql("INSERT INTO Books (Id, Title, Author, Category, IsRented, CreatedAt, UpdatedAt, Status, CoverPath) VALUES (UUID(), 'Frankenstein', 'Mary Shelley', 'Horror', 0, NOW(), NOW(), 'Available', '/images/book20.jpg')");
         }
-        
+
         public override void Down()
         {
             Sql("DELETE FROM Books");
