@@ -1,5 +1,6 @@
 ﻿using FluentValidation.Results;
 using System;
+using System.Collections.Generic;
 
 namespace Soft.Bussiness.Models.Books
 { 
@@ -38,5 +39,10 @@ namespace Soft.Bussiness.Models.Books
         }
 
     }
- }
+
+    public class BookResponse
+    {
+        public IEnumerable<Book> BookViewModels { get; set; }
+    }
+}
 

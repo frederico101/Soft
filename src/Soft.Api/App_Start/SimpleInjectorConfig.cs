@@ -1,11 +1,17 @@
-﻿using SimpleInjector.Integration.WebApi;
-using SimpleInjector;
+﻿using SimpleInjector;
+using SimpleInjector.Integration.WebApi;
+using SimpleInjector.Lifestyles;
+using System.Web.Http;
+using System.Web.Mvc;
+using System.Reflection;
+using SimpleInjector.Integration.Web.Mvc;
+using Soft.Api.Areas.HelpPage.Controllers;
 using Soft.Bussiness.Core.Notifications;
 using Soft.Bussiness.Core.Services;
 using Soft.Bussiness.Models.Books;
 using Soft.Infra.Data.Repository;
-using System.Web.Http;
-using SimpleInjector.Lifestyles;
+using System.Net.Http;
+using System;
 
 namespace Soft.Api
 {
@@ -19,20 +25,38 @@ namespace Soft.Api
             // Set the scoped lifestyle to AsyncScopedLifestyle
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
-            // Register your types, for instance:
+            // Register HttpClient as a singleton
+            container.Register<HttpClient>(() =>
+            {
+                var client = new HttpClient
+                {
+                    BaseAddress = new Uri("https://localhost:50547/")
+                };
+                return client;
+            }, Lifestyle.Singleton);
+
+            // Register HttpConfiguration as a singleton
+            var config = GlobalConfiguration.Configuration;
+            container.RegisterInstance(config);
+
+            // Register your other types, for instance:
             container.Register<ApplicationDbContext>(Lifestyle.Scoped);
             container.Register<IBookRepository, BookRepository>(Lifestyle.Scoped);
-            container.Register<IBookServices, BookServices>(Lifestyle.Scoped);
             container.Register<INotification, Notification>(Lifestyle.Singleton);
+            container.Register<IBookServices, BookServices>(Lifestyle.Transient);
 
-            // Register the Web API controllers
-            container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
+            // Register Web API and MVC controllers
+            container.RegisterWebApiControllers(config);
+            container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
 
             // Verify the container configuration
             container.Verify();
 
             // Set the Web API dependency resolver
-            GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
+            config.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
+
+            // Set the MVC dependency resolver
+            DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
         }
     }
- }
+}
