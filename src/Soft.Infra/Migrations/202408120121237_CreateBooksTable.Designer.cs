@@ -7,13 +7,13 @@ namespace Soft.Infra.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.5.1")]
-    public sealed partial class _10082024_SeedBookTable : IMigrationMetadata
+    public sealed partial class CreateBooksTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_10082024_SeedBookTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateBooksTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "202408100633219_10082024_SeedBookTable"; }
+            get { return "202408120121237_CreateBooksTable"; }
         }
         
         string IMigrationMetadata.Source

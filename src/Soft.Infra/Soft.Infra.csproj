@@ -129,17 +129,13 @@
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="Data\Repository\BookRepository.cs" />
     <Compile Include="Data\Repository\Repository.cs" />
-    <Compile Include="Migrations\202408100554574_CreateUserTable_10082024.cs" />
-    <Compile Include="Migrations\202408100554574_CreateUserTable_10082024.designer.cs">
-      <DependentUpon>202408100554574_CreateUserTable_10082024.cs</DependentUpon>
+    <Compile Include="Migrations\202408120121237_CreateBooksTable.cs" />
+    <Compile Include="Migrations\202408120121237_CreateBooksTable.designer.cs">
+      <DependentUpon>202408120121237_CreateBooksTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202408100622588_10082024_CreateBookTable.cs" />
-    <Compile Include="Migrations\202408100622588_10082024_CreateBookTable.designer.cs">
-      <DependentUpon>202408100622588_10082024_CreateBookTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202408100633219_10082024_SeedBookTable.cs" />
-    <Compile Include="Migrations\202408100633219_10082024_SeedBookTable.designer.cs">
-      <DependentUpon>202408100633219_10082024_SeedBookTable.cs</DependentUpon>
+    <Compile Include="Migrations\202408120122511_CreateSeedBooksTable.cs" />
+    <Compile Include="Migrations\202408120122511_CreateSeedBooksTable.designer.cs">
+      <DependentUpon>202408120122511_CreateSeedBooksTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -155,14 +151,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202408100554574_CreateUserTable_10082024.resx">
-      <DependentUpon>202408100554574_CreateUserTable_10082024.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202408120121237_CreateBooksTable.resx">
+      <DependentUpon>202408120121237_CreateBooksTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202408100622588_10082024_CreateBookTable.resx">
-      <DependentUpon>202408100622588_10082024_CreateBookTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202408100633219_10082024_SeedBookTable.resx">
-      <DependentUpon>202408100633219_10082024_SeedBookTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202408120122511_CreateSeedBooksTable.resx">
+      <DependentUpon>202408120122511_CreateSeedBooksTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,8 +1,10 @@
-﻿using Soft.Bussiness.Core.Notifications;
+﻿using Soft.Api.ViewModel;
+using Soft.Bussiness.Core.Notifications;
 using Soft.Bussiness.Core.Services;
 using Soft.Bussiness.Models.Books;
 using Soft.Infra.Data.Repository;
 using System;
+using System.Linq;
 using System.Web.Http;
 
 namespace Soft.Api.Controllers
@@ -25,14 +27,28 @@ namespace Soft.Api.Controllers
         {
             try
             {
-                var test =  _bookRepository.GetAll();
-                return Ok();
+                var books = _bookRepository.GetAll();
+
+                var bookViewModels = books.Result.Select(b => new BookViewModel
+                {
+                    Id = b.Id,
+                    Title = b.Title,
+                    Author = b.Author,
+                    Category = b.Category,
+                    IsRented = b.IsRented,
+                    CreatedAt = b.CreatedAt,
+                    UpdatedAt = b.UpdatedAt,
+                    Status = b.Status,
+                    CoverPath = b.CoverPath
+                }).ToList();
+
+                return Ok(bookViewModels);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-            }
+        }
 
         // GET: BookViewModels/Details/5
         //public async Task<ActionResult> Details(Guid? id)
