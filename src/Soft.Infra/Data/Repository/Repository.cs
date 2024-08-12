@@ -13,9 +13,9 @@ namespace Soft.Infra.Data.Repository
     {
         protected readonly ApplicationDbContext _applicationDbContext;
         protected readonly DbSet<TEntity> _dbSet;
-        protected Repository() 
+        protected Repository(ApplicationDbContext applicationDbContext) 
         {
-            _applicationDbContext = new ApplicationDbContext();
+            _applicationDbContext = applicationDbContext;
             _dbSet = _applicationDbContext.Set<TEntity>();
         }
         public virtual async Task Add(TEntity entity)

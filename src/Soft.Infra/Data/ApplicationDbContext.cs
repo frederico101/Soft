@@ -2,7 +2,7 @@
 using Soft.Bussiness.Models.Books;
 using System.Data.Entity;
 
-//[DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
+[DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
 public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext()
