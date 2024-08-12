@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Soft.Bussiness.Models.Books;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 
@@ -50,4 +52,6 @@ namespace Soft.Api.ViewModel
         [ScaffoldColumn(false)]
         public string FormattedUpdatedAt => UpdatedAt.ToString("yyyy-MM-dd");
     }
+
+   
 }

@@ -5,25 +5,31 @@ using Soft.Bussiness.Models.Books;
 using Soft.Infra.Data.Repository;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace Soft.Api.Controllers
 {
-    public class BookViewModelsController : ApiController
+    public class BooksController : ApiController
     {
         private readonly IBookRepository _bookRepository;
         private readonly IBookServices _bookServices;
-
-        public BookViewModelsController(IBookRepository bookRepository, IBookServices bookServices)
+        public BooksController(IBookServices bookService, IBookRepository bookRepository)
         {
             _bookRepository = bookRepository;
-            _bookServices = bookServices;
+            _bookServices = bookService ?? throw new ArgumentNullException(nameof(bookService));
+        }
+
+        public async Task<IHttpActionResult> Index()
+        {
+            var books = await _bookServices.GetBooksAsync();
+            return Ok(books);
         }
 
         // GET: BookViewModels
         [HttpGet]
         [Route("api/GetBooks")]
-        public IHttpActionResult Index()
+        public IHttpActionResult GetBooks()
         {
             try
             {
@@ -42,7 +48,7 @@ namespace Soft.Api.Controllers
                     CoverPath = b.CoverPath
                 }).ToList();
 
-                return Ok(bookViewModels);
+                return Json(new { bookViewModels });
             }
             catch (Exception ex)
             {

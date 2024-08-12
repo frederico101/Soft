@@ -13,8 +13,7 @@ namespace Soft.Api.Areas.HelpPage.Controllers
     {
         private const string ErrorViewName = "Error";
 
-        public HelpController()
-            : this(GlobalConfiguration.Configuration)
+        private HelpController()  : this(GlobalConfiguration.Configuration)
         {
         }
 
