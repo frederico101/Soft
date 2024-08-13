@@ -1,5 +1,6 @@
 ﻿using Soft.Bussiness;
 using Soft.Bussiness.Core.Data;
+using Soft.Bussiness.Models.Books;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -38,9 +39,16 @@ namespace Soft.Infra.Data.Repository
             _applicationDbContext.Entry(entity).State = EntityState.Modified;
             await SaveChanges();
         }
-        public virtual async Task Delete(Guid id)
+        public virtual async Task Delete(TEntity entity)
         {
-            _applicationDbContext.Entry(new TEntity { Id = id }).State = EntityState.Deleted;
+            if (_applicationDbContext.Entry(entity).State == EntityState.Detached)
+            {
+                // Attach the entity to the context
+                _applicationDbContext.Set<TEntity>().Attach(entity);
+            }
+
+            // Mark the entity as deleted
+            _applicationDbContext.Entry(entity).State = EntityState.Deleted;
             await SaveChanges();
         }
 
@@ -53,7 +61,5 @@ namespace Soft.Infra.Data.Repository
         {
              return await _applicationDbContext.SaveChangesAsync();
         }
-
-       
     }
 }

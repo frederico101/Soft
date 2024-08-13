@@ -7,7 +7,7 @@ namespace Soft.Bussiness.Models.Books
     public class Book : Entity
     {
 
-   
+        public Guid Id { get; set; }
         public string Title { get; set; }
 
      
@@ -43,6 +43,7 @@ namespace Soft.Bussiness.Models.Books
     public class BookResponse
     {
         public IEnumerable<Book> BookViewModels { get; set; }
+        public Book BookTdo { get; set; }
     }
 }
 

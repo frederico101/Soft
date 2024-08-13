@@ -10,7 +10,7 @@ namespace Soft.Bussiness.Core.Data
         Task<Tentity> GetById(Guid id);
         Task<List<Tentity>> GetAll();
         Task Update(Tentity entity);
-        Task Delete(Guid id);
+        Task Delete(Tentity entity);
 
         Task<int> SaveChanges();
     }

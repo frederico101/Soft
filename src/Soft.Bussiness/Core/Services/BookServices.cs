@@ -1,7 +1,10 @@
-﻿using Soft.Bussiness.Models.Books;
+﻿using Newtonsoft.Json;
+using Soft.Bussiness.Models.Books;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Soft.Bussiness.Core.Services
@@ -9,18 +12,19 @@ namespace Soft.Bussiness.Core.Services
     public class BookServices : IBookServices
     {
         private readonly HttpClient _httpClient;
-
-        public BookServices(HttpClient httpClient)
+        private readonly IBookRepository _bookRepository;
+        public BookServices(IBookRepository bookRepository, HttpClient httpClient)
         {
+            _bookRepository = bookRepository;
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-            _httpClient.BaseAddress = new Uri("http://localhost:50547/");
+            //_httpClient.BaseAddress = new Uri("http://localhost:50547/");
         }
 
         public async Task<IEnumerable<Book>> GetBooksAsync()
         {
             try
             {
-                var response = await _httpClient.GetAsync("api/GetBooks");
+                var response = await _httpClient.GetAsync("http://localhost:50547/api/GetBooks");
                 response.EnsureSuccessStatusCode();
                 var bookResponse = await response.Content.ReadAsAsync<BookResponse>();
                 return bookResponse.BookViewModels;
@@ -31,42 +35,58 @@ namespace Soft.Bussiness.Core.Services
             }
         }
 
-        //public async Task AddBookServices(Book book) 
-        //{
-        //    var validationResult = book.Validate();
-        //    if (!validationResult.IsValid)
-        //    {
-        //        foreach (var error in validationResult.Errors)
-        //        {
-        //            _notification.AddNotification(error.ErrorMessage);
-        //        }
-        //        return;
-        //    }
 
-        //    await _bookRepository.Add(book);
-        //}
+        public async Task<Book> GetBookByIdAsync(Guid bookId)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"http://localhost:50547/api/BooksDetails/{bookId}");
+                response.EnsureSuccessStatusCode();
+                var bookResponse = await response.Content.ReadAsAsync<Book>();
+                return bookResponse;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Error fetching books", ex);
+            }
+        }
 
-        //public async Task UpdateBookServices(Book book)
-        //{
-        //    var validationResult = book.Validate();
-        //    if (!validationResult.IsValid)
-        //    {
-        //        foreach (var error in validationResult.Errors)
-        //        {
-        //            _notification.AddNotification(error.ErrorMessage);
-        //        }
-        //        return;
-        //    }
-        //    await _bookRepository.Update(book);
-        //}
 
-        //public async Task DeleteBookServices(Book book)
-        //{
-        //    var bookResult = await _bookRepository.GetById(book.Id);
-        //    if (bookResult == null) return;
-        //        // if (bookResult.IsRented) return; TODO envia um alerta avisando que o livro esta alugado
-        //        await _bookRepository.Delete(book.Id);
+        public async Task<Book> UpdateBookAsync(Guid bookId, Book updatedBook)
+        {
+            try
+            {
+                var jsonContent = new StringContent(JsonConvert.SerializeObject(updatedBook), Encoding.UTF8, "application/json");
 
-        //}
+                var response = await _httpClient.PutAsync($"http://localhost:50547/api/UpdateBook/{bookId}", jsonContent);
+                response.EnsureSuccessStatusCode();
+
+                return await response.Content.ReadAsAsync<Book>();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Error updating book", ex);
+            }
+        }
+
+
+        public async Task<Book> DeleteBookHttpAsync(Book book)
+        {
+            try
+            {
+                var jsonContent = new StringContent(JsonConvert.SerializeObject(book), Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PutAsync($"http://localhost:50547/api/DeleteBook/{book.Id}", jsonContent);
+                response.EnsureSuccessStatusCode();
+                var bookResponse = await response.Content.ReadAsAsync<Book>();
+                return bookResponse;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Error fetching books", ex);
+            }
+
+        }
+
     }
 }

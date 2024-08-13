@@ -108,6 +108,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Soft.Api\Soft.Api.csproj">
+      <Project>{BD7322EC-7F2F-4FBE-BCDD-E80DE8CF1061}</Project>
+      <Name>Soft.Api</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

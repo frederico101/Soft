@@ -40,8 +40,8 @@ namespace Soft.Api
             container.RegisterInstance(config);
 
             // Register your other types, for instance:
-            container.Register<ApplicationDbContext>(Lifestyle.Scoped);
-            container.Register<IBookRepository, BookRepository>(Lifestyle.Scoped);
+            container.Register<ApplicationDbContext>(Lifestyle.Singleton);
+            container.Register<IBookRepository, BookRepository>(Lifestyle.Singleton);
             container.Register<INotification, Notification>(Lifestyle.Singleton);
             container.Register<IBookServices, BookServices>(Lifestyle.Transient);
 
