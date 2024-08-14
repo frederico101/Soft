@@ -6,7 +6,7 @@
 
 <!-- Include DataTables CSS -->
 @*<link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />*@
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />*@
 
 <h2>Index</h2>
 
@@ -56,97 +56,19 @@
 
 <!-- Include jQuery and DataTables.js -->
 @*<script src="~/Content/dataTables.bootstrap.min.css"></script>
-<script src="~/Content/dataTables.min.css"></script>*@
+    <script src="~/Content/dataTables.min.css"></script>*@
 
-<script>
-    $(document).ready(function () {
-        $('#booksTable').DataTable({
-            "paging": true,
-            "searching": true,
-            "ordering": true,
-            "info": true
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $('#booksTable').DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": true,
+                "info": true
+            });
         });
-    });
-</script>
-
-
-
-
-
-
-@*﻿@model IEnumerable<Soft.Api.ViewModel.BookViewModel>
-
-    @{
-        ViewBag.Title = "Index";
-    }
-
-    <h2>Index</h2>
-
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Author)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsRented)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CoverPath)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Author)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsRented)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedAt)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UpdatedAt)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CoverPath)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "EditBook", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Detail", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "DeleteBookQuestion", new { id = item.Id })
-                </td>
-            </tr>
-        }
-
-    </table>*@
+    </script>
+}

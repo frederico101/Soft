@@ -27,8 +27,7 @@ namespace Soft.Infra.Data.Repository
 
         public virtual async Task<List<TEntity>> GetAll()
         {
-            var test = await _dbSet.ToListAsync();
-            return test;
+            return await _dbSet.ToListAsync();
         }
 
         public virtual async Task<TEntity> GetById(Guid id)
@@ -53,10 +52,10 @@ namespace Soft.Infra.Data.Repository
             await SaveChanges();
         }
 
-        public void Dispose()
-        {
-            _applicationDbContext?.Dispose();
-        }
+        //public void Dispose()
+        //{
+        //    _applicationDbContext?.Dispose();
+        //}
 
         public async Task<int> SaveChanges()
         {

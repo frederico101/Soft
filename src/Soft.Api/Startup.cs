@@ -15,10 +15,11 @@ public class Startup
         {
             TokenValidationParameters = new TokenValidationParameters
             {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false
+                IssuerSigningKey = new SymmetricSecurityKey(key)
             }
         });
     }

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Soft.Bussiness.Core.Data
 {
-    public interface IRepository<Tentity>: IDisposable where Tentity: Entity  
+    public interface IRepository<Tentity> where Tentity: Entity  
     {
         Task Add(Tentity entity);
         Task<Tentity> GetById(Guid id);

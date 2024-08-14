@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Soft.Bussiness.Models.Books;
+using Soft.Bussiness.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -13,8 +14,8 @@ namespace Soft.Bussiness.Core.Services
     public class UserServices : IUserServices
     {
         private readonly HttpClient _httpClient;
-        private readonly IBookRepository _bookRepository;
-        public UserServices(IBookRepository bookRepository, HttpClient httpClient)
+        private readonly IUserRepository _bookRepository;
+        public UserServices(IUserRepository bookRepository, HttpClient httpClient)
         {
             _bookRepository = bookRepository;
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
@@ -25,6 +26,7 @@ namespace Soft.Bussiness.Core.Services
         {
             try
             {
+                 
                 var jsonContent = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync("http://localhost:50547/api/account/login", jsonContent);
                 response.EnsureSuccessStatusCode();
@@ -44,26 +46,6 @@ namespace Soft.Bussiness.Core.Services
             {
                 throw new InvalidOperationException("Error making HTTP request", httpEx);
             }
-            //try
-            //{
-            //    var jsonContent = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
-            //    var response = await _httpClient.PostAsync("http://localhost:50547/api/account/login", jsonContent);
-            //    response.EnsureSuccessStatusCode();
-
-            //    if (response.IsSuccessStatusCode)
-            //    {
-            //        var result = await response.Content.ReadAsAsync<dynamic>();
-            //        string token = result.Token;
-            //        return token;
-
-
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new InvalidOperationException("Error fetching books", ex);
-            //}
-            //return null;
         }
 
     }

@@ -29,7 +29,7 @@
                     {
                         Id = c.Guid(nullable: false),
                         Username = c.String(nullable: false, maxLength: 100, storeType: "nvarchar"),
-                        Password = c.String(nullable: false, maxLength: 100, storeType: "nvarchar"),
+                         Password = c.String(nullable: false, maxLength: 100, storeType: "nvarchar"),
                     })
                 .PrimaryKey(t => t.Id);
             

@@ -12,11 +12,13 @@ using Soft.Infra.Data.Repository;
 
 public class AccountController : ApiController
 {
-    private ApplicationDbContext db = new ApplicationDbContext();
+   // private ApplicationDbContext db = new ApplicationDbContext();
      private readonly IUserRepository _userRepository;
-    public AccountController(IUserRepository userRepository)
+     private readonly IBookRepository _bookRepository;
+    public AccountController(IUserRepository userRepository, IBookRepository bookRepository)
     {
         _userRepository = userRepository;
+        _bookRepository = bookRepository;
     }
 
 
@@ -24,14 +26,11 @@ public class AccountController : ApiController
     [Route("api/account/login")]
     public async Task<IHttpActionResult> Login(User loginModel)
     {
+        try
+        {
+            var userx = await _userRepository.GetAll();
 
-         var userx = await _userRepository.GetAll();
-
-        // var user = loginModel.Username.ToString(); /*db.Users.FirstOrDefault(u => u.Username == loginModel.Username && u.Password == loginModel.Password);*/
-        // Mocking a specific user for testing purposes
-        var user = (loginModel.Username == "fred")
-            ? new User { Username = "fred", Password = "123" }
-            : null;
+           var user =  userx.FirstOrDefault(x=>x.Username == loginModel.Username);
         if (user == null)
         {
             return Unauthorized();
@@ -57,5 +56,11 @@ public class AccountController : ApiController
             Token = tokenString,
             Message = "Login successful"
         });
+        }
+        catch (Exception ex)
+        {
+
+        }
+        return null;
     }
 }

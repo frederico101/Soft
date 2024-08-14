@@ -8,6 +8,7 @@ public class ApplicationDbContext : DbContext
     public ApplicationDbContext()
         : base("name=MySqlConnection")
     {
+        Database.SetInitializer<ApplicationDbContext>(null);
     }
 
     public DbSet<User> Users { get; set; }

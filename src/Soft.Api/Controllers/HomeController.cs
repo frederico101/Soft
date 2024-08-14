@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace Soft.Api.Controllers
 {
-    [Authorize]
+    
     public class HomeController : Controller
     {
         private readonly IBookServices _bookService;
@@ -65,9 +65,20 @@ namespace Soft.Api.Controllers
                 CoverPath = book.CoverPath
             };
 
-            var test = await _bookService.CreateBookHttp(resultBook);
-            
-            return View("Details");
+            await _bookService.CreateBookHttp(resultBook);
+            var result = new BookViewModel
+            {
+                Id = resultBook.Id,
+                Title = resultBook.Title,
+                Author = resultBook.Author,
+                Category = resultBook.Category,
+                IsRented = resultBook.IsRented,
+                CreatedAt = resultBook.CreatedAt,
+                UpdatedAt = resultBook.UpdatedAt,
+                Status = resultBook.Status,
+                CoverPath = resultBook.CoverPath
+            };
+            return View("Details", result);
         }
 
         public async Task<ActionResult> Detail(Guid id)
