@@ -3,20 +3,40 @@
 @{
     ViewBag.Title = "Index";
 }
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
 
-<!-- Include DataTables CSS -->
-@*<link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />*@
+@section Styles {
+    <style>
+        .create_container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row;
+            padding: 20px;
+            border-radius: 5px;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .create_header {
+           
+        }
+    </style>
+}
+
 
 <h2>Index</h2>
+<div class="create_container">
+    <div class="create_header">
+   
+        @Html.ActionLink("Create New", "CreateBook",null ,new { @class = "btn btn-secondary" })
+  
 
-<p>
-    @Html.ActionLink("Create New", "CreateBook")
-</p>
-
-<p>
-    @Html.ActionLink("Logout", "Logout", "Login", null, new { @class = "btn btn-link" })
-</p>
+ 
+        @Html.ActionLink("Logout", "Logout", "Login", null, new { @class = "btn btn-secondary" })
+   
+        </div>
+</div>
 
 <table id="booksTable" class="table display">
     <thead>
@@ -43,11 +63,20 @@
                 <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
                 <td>@Html.DisplayFor(modelItem => item.UpdatedAt)</td>
                 <td>@Html.DisplayFor(modelItem => item.Status)</td>
-                <td>@Html.DisplayFor(modelItem => item.CoverPath)</td>
                 <td>
-                    @Html.ActionLink("Edit", "EditBook", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Detail", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "DeleteBookQuestion", new { id = item.Id })
+                    <!-- Render the image -->
+                    <img src="@item.CoverPath" alt="Book Cover" style="max-width: 100px; max-height: 150px;" />
+                </td>
+               
+                <td>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <a href="@Url.Action("rentBook", new { id = item.Id })" class="btn btn-secondary rent-btn" data-is-rented="@item.IsRented">
+                            Rent
+                        </a>|
+                        @Html.ActionLink("Edit", "EditBook", new { id = item.Id }, new { @class = "btn btn-secondary" }) |
+                        @Html.ActionLink("Details", "Detail", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                        @Html.ActionLink("Delete", "DeleteBookQuestion", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    </div>
                 </td>
             </tr>
         }
@@ -61,6 +90,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#booksTable').DataTable({
@@ -69,6 +99,28 @@
                 "ordering": true,
                 "info": true
             });
+
+
+
+            document.addEventListener('DOMContentLoaded', function () {
+                // Select all rent buttons
+                const rentButtons = document.querySelectorAll('.rent-btn');
+
+                // Iterate over each rent button
+                rentButtons.forEach(button => {
+                    // Get the is-rented status from the data attribute
+                    const isRented = button.getAttribute('data-is-rented') === 'True';
+
+                    // Disable the button if the item is rented
+                    if (isRented) {
+                        button.classList.add('disabled');
+                        button.style.pointerEvents = 'none'; // Optional: prevent clicks
+                        button.setAttribute('aria-disabled', 'true'); // Optional: accessibility
+                    }
+                });
+            });
+
+
         });
     </script>
 }

@@ -38,9 +38,6 @@ public class LoginController : Controller
             if (result != null)
             Session["JWTToken"] = result;
         return RedirectToAction("Index", "Home"); 
-           
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                return View(user);
     }
 
     public ActionResult Logout()

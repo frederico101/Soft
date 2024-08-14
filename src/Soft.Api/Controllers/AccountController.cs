@@ -29,38 +29,46 @@ public class AccountController : ApiController
         try
         {
             var userx = await _userRepository.GetAll();
+            var user = userx.FirstOrDefault(x => x.Username == loginModel.Username);
 
-           var user =  userx.FirstOrDefault(x=>x.Username == loginModel.Username);
-        if (user == null)
-        {
-            return Unauthorized();
-        }
-
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes("s3gur1t33eyJw7S3c53tK3y-frederico-brit0-alves");
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(new Claim[]
+            if (user == null)
             {
-                new Claim(ClaimTypes.Name, user.Username)
-            }),
-            Expires = DateTime.UtcNow.AddHours(1),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        };
+                return Unauthorized();
+            }
 
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        var tokenString = tokenHandler.WriteToken(token);
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes("s3gur1t33eyJw7S3c53tK3y-frederico-brit0-alves");
+            var issuer = "https://myapp.example.com"; // Must match the issuer in Startup.cs
+            var audience = "https://myapp.example.com"; // Must match the audience in Startup.cs
 
-        return Ok(new
-        {
-            Token = tokenString,
-            Message = "Login successful"
-        });
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, user.Username)
+                }),
+                Expires = DateTime.UtcNow.AddHours(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                Issuer = issuer,
+                Audience = audience
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
+
+            return Ok(new
+            {
+                Token = tokenString,
+                Message = "Login successful"
+            });
         }
         catch (Exception ex)
         {
-
+            return Ok(new
+            {
+                Token = "",
+                Message = "an invalid username or password"
+            });
         }
-        return null;
     }
 }

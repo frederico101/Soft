@@ -10,7 +10,8 @@ using System.Web.Http;
 
 namespace Soft.Api.Controllers
 {
-   
+
+    [Authorize]
     public class BooksController : ApiController
     {
         private readonly IBookRepository _bookRepository;
