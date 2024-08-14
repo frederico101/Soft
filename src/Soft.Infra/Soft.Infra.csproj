@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ApplicationDbContext.cs" />
+    <Compile Include="Data\Repository\UserRepository.cs" />
     <Compile Include="Data\Repository\BookRepository.cs" />
     <Compile Include="Data\Repository\Repository.cs" />
     <Compile Include="Migrations\202408120121237_CreateBooksTable.cs" />
@@ -152,6 +153,14 @@
     <Compile Include="Migrations\202408120122511_CreateSeedBooksTable.cs" />
     <Compile Include="Migrations\202408120122511_CreateSeedBooksTable.designer.cs">
       <DependentUpon>202408120122511_CreateSeedBooksTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202408132120240_SeedUserTable.cs" />
+    <Compile Include="Migrations\202408132120240_SeedUserTable.designer.cs">
+      <DependentUpon>202408132120240_SeedUserTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202408132121193_SeedUser.cs" />
+    <Compile Include="Migrations\202408132121193_SeedUser.designer.cs">
+      <DependentUpon>202408132121193_SeedUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -172,6 +181,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202408120122511_CreateSeedBooksTable.resx">
       <DependentUpon>202408120122511_CreateSeedBooksTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202408132120240_SeedUserTable.resx">
+      <DependentUpon>202408132120240_SeedUserTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202408132121193_SeedUser.resx">
+      <DependentUpon>202408132121193_SeedUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

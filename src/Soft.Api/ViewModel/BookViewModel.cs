@@ -8,6 +8,11 @@ namespace Soft.Api.ViewModel
 {
     public class BookViewModel
     {
+        public BookViewModel()
+        {
+                Id = Guid.NewGuid();
+        }
+
         [Key]
         public Guid Id { get; set; }
 

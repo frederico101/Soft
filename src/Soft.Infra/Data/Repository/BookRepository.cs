@@ -12,21 +12,5 @@ namespace Soft.Infra.Data.Repository
     {
         public BookRepository(ApplicationDbContext context) : base(context) { }
 
-        public List<Book> ObterProdutoFornecedor(Guid id)
-        {
-            return  _applicationDbContext.Books.AsNoTracking().ToList();
-        }
-
-        //public async Task<IEnumerable<Produto>> ObterProdutosFornecedores()
-        //{
-        //    return await Db.Produtos.AsNoTracking()
-        //        .Include(f => f.Fornecedor)
-        //        .OrderBy(p => p.Nome).ToListAsync();
-        //}
-
-        //public async Task<IEnumerable<Produto>> ObterProdutosPorFornecedor(Guid fornecedorId)
-        //{
-        //    return await Buscar(p => p.FornecedorId == fornecedorId);
-        //}
     }
 }

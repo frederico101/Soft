@@ -27,7 +27,7 @@
                 "dbo.Users",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Guid(nullable: false),
                         Username = c.String(nullable: false, maxLength: 100, storeType: "nvarchar"),
                         Password = c.String(nullable: false, maxLength: 100, storeType: "nvarchar"),
                     })

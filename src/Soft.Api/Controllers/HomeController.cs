@@ -5,11 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Soft.Api.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly IBookServices _bookService;
@@ -37,8 +39,37 @@ namespace Soft.Api.Controllers
             }).ToList();
 
             return View(bookViewModels);
-        } 
-        
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> CreateBook()
+        {
+            return View("Create");
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult> CreateBook(BookViewModel book)
+        {
+
+            var resultBook = new Book
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Author = book.Author,
+                Category = book.Category,
+                IsRented = book.IsRented,
+                CreatedAt = book.CreatedAt,
+                UpdatedAt = book.UpdatedAt,
+                Status = book.Status,
+                CoverPath = book.CoverPath
+            };
+
+            var test = await _bookService.CreateBookHttp(resultBook);
+            
+            return View("Details");
+        }
+
         public async Task<ActionResult> Detail(Guid id)
         {
             var resultBook = await _bookService.GetBookByIdAsync(id);

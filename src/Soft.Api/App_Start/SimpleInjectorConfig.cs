@@ -12,6 +12,7 @@ using Soft.Bussiness.Models.Books;
 using Soft.Infra.Data.Repository;
 using System.Net.Http;
 using System;
+using Soft.Bussiness.Models.Users;
 
 namespace Soft.Api
 {
@@ -42,8 +43,10 @@ namespace Soft.Api
             // Register your other types, for instance:
             container.Register<ApplicationDbContext>(Lifestyle.Singleton);
             container.Register<IBookRepository, BookRepository>(Lifestyle.Singleton);
+            container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
             container.Register<INotification, Notification>(Lifestyle.Singleton);
             container.Register<IBookServices, BookServices>(Lifestyle.Transient);
+            container.Register<IUserServices, UserServices>(Lifestyle.Transient);
 
             // Register Web API and MVC controllers
             container.RegisterWebApiControllers(config);

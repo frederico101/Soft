@@ -11,7 +11,11 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "CreateBook")
+</p>
+
+<p>
+    @Html.ActionLink("Logout", "Logout", "Login", null, new { @class = "btn btn-link" })
 </p>
 
 <table id="booksTable" class="table display">

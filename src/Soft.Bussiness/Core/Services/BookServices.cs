@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +19,23 @@ namespace Soft.Bussiness.Core.Services
             _bookRepository = bookRepository;
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
             //_httpClient.BaseAddress = new Uri("http://localhost:50547/");
+        }
+
+
+        public async Task<IEnumerable<Book>> CreateBookHttp(Book book)
+        {
+            try
+            {
+                var jsonContent = new StringContent(JsonConvert.SerializeObject(book), Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("http://localhost:50547/api/CreateBooks", jsonContent);
+                response.EnsureSuccessStatusCode();
+                var bookResponse = await response.Content.ReadAsAsync<BookResponse>();
+                return bookResponse.BookViewModels;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Error fetching books", ex);
+            }
         }
 
         public async Task<IEnumerable<Book>> GetBooksAsync()

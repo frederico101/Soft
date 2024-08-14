@@ -116,13 +116,15 @@
     <Compile Include="Core\Data\IRepository.cs" />
     <Compile Include="Core\Notifications\INotification.cs" />
     <Compile Include="Core\Notifications\Notification.cs" />
+    <Compile Include="Core\Services\IUserServices.cs" />
+    <Compile Include="Core\Services\UserServices.cs" />
     <Compile Include="Entity\Entity.cs" />
     <Compile Include="Models\Books\Book.cs" />
     <Compile Include="Models\Books\Validations\BookValidation.cs" />
     <Compile Include="Models\Books\IBookRepository.cs" />
     <Compile Include="Core\Services\BookServices.cs" />
     <Compile Include="Core\Services\IBookServices.cs" />
-    <Compile Include="Models\Users\LoginModel.cs" />
+    <Compile Include="Models\Users\IUserRepository.cs" />
     <Compile Include="Models\Users\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

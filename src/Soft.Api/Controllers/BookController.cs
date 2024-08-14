@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace Soft.Api.Controllers
 {
+   
     public class BooksController : ApiController
     {
         private readonly IBookRepository _bookRepository;
@@ -27,6 +28,16 @@ namespace Soft.Api.Controllers
         {
             var books = await _bookRepository.GetById(bookId);
             return Ok(books);
+        } 
+        
+        
+        
+        [HttpPost]
+        [Route("api/CreateBooks")]
+        public async Task<IHttpActionResult> CreateBooks(Book book)
+        {
+            await _bookRepository.Add(book);
+            return Ok(book);
         }
 
         // GET: BookViewModels

@@ -27,7 +27,8 @@ namespace Soft.Infra.Data.Repository
 
         public virtual async Task<List<TEntity>> GetAll()
         {
-            return await _dbSet.ToListAsync();
+            var test = await _dbSet.ToListAsync();
+            return test;
         }
 
         public virtual async Task<TEntity> GetById(Guid id)
